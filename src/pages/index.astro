@@ -3,6 +3,7 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
 import Re from '../components/react/Re.tsx';
+import Ke from '../components/react/Ke.tsx';
 import Pe from "../components/preact/Pe.tsx";
 
 const data:any = Astro.locals; //middleware
@@ -16,5 +17,6 @@ const data:any = Astro.locals; //middleware
 	{ data.title }
 	<Re props=`${data.title} re`></Re>
 	<Pe props=`${data.title} pe`></Pe>
+	<Ke props=`not ssr ke` client:only="react"></Ke>
 	<Welcome />
 </Layout>

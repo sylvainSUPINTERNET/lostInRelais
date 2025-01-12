@@ -13,11 +13,13 @@ import preact from '@astrojs/preact';
 export default defineConfig({
   integrations: [tailwind(),
    react({
-    experimentalReactChildren: true
+    experimentalReactChildren: true,
+    include: ['**/react/*'], // if you don't set this, tsx files conflict while processing ( react and preact trying to process same file at the same time !)
   }),
   preact({
     compat: true,
-    devtools: true
+    devtools: true,
+    include: ['**/preact/*'],
   })],
   adapter: netlify()
 });
