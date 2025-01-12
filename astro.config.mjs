@@ -7,8 +7,17 @@ import react from '@astrojs/react';
 
 import netlify from '@astrojs/netlify';
 
+import preact from '@astrojs/preact';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react()],
+  integrations: [tailwind(),
+   react({
+    experimentalReactChildren: true
+  }),
+  preact({
+    compat: true,
+    devtools: true
+  })],
   adapter: netlify()
 });
