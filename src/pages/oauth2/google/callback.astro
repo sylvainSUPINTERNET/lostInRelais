@@ -1,0 +1,19 @@
+---
+---
+
+<script is:inline>
+    // TODO get the access token from the url 
+    // TODO POST request to handler ( will set cookie and redirect to home )
+    // TODO add intercept if token is valid and user try to access callback => redirect 
+    // TODO display info from token ( in .astro / react tsx )
+
+    // e.g
+    // http://localhost:4321/oauth2/google/callback#state=state_parameter_passthrough_value&access_token=TEST_TOK&token_type=Bearer&expires_in=3599&scope=https://www.googleapis.com/auth/youtube.readonly
+    window.location.hash.substring(1)
+
+    console.log(window.location.hash)
+</script>
+
+<p>
+    callback
+</p>
