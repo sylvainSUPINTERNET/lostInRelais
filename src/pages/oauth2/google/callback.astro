@@ -1,7 +1,60 @@
 ---
+export const prerender = false
+---
+
+<script>
+
+    ( async () => {
+        if ( window.location.hash != "" ) {
+        try {
+          const hash = window.location.hash.substring(1);
+
+          const response = await fetch('/oauth2/google/checkAuth', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            cache: 'no-cache',
+            body: JSON.stringify({"params": new URLSearchParams(hash).toString()})
+          });
+
+          if ( response.status !== 200 ) {
+            throw new Error("Failed to login");
+          }
+
+          window.location.href = "/";
+          
+        } catch ( e ) {
+          alert("Error: Failed to login");
+          window.location.href = "/login";
+        }
+      }
+    })()
+
+</script>
+
+
+
+
+
+
+<!-- 
+---
+export const prerender = false
+
+const currentUrl = new URL(Astro.request.url);
+console.log(currentUrl);
+
+Astro.cookies.set('access_token', 'TEST_TOK', { path: '/', httpOnly: true });
 ---
 
 <script is:inline>
+
+
+
+
+
     // TODO get the access token from the url 
     // TODO POST request to handler ( will set cookie and redirect to home )
     // TODO add intercept if token is valid and user try to access callback => redirect 
@@ -9,11 +62,39 @@
 
     // e.g
     // http://localhost:4321/oauth2/google/callback#state=state_parameter_passthrough_value&access_token=TEST_TOK&token_type=Bearer&expires_in=3599&scope=https://www.googleapis.com/auth/youtube.readonly
-    window.location.hash.substring(1)
+    
+    
+    // if ( window.location.hash != "" && window.location.)
+    // const x = window.location.hash.substring(1)
+    // console.log(x);
+    
+    // console.log(window.location.hash)
 
-    console.log(window.location.hash)
+    //     {
+    // "issued_to": "513950996029-qj7sunafuto6a7oujm5lbpnob1059trg.apps.googleusercontent.com",
+    // "audience": "513950996029-qj7sunafuto6a7oujm5lbpnob1059trg.apps.googleusercontent.com",
+    // "scope": "https://www.googleapis.com/auth/youtube.readonly",
+    // "expires_in": 174,
+    // "access_type": "online"
+    // }
+
+    // 400 http
+    //     {
+    // "error": "invalid_token",
+    // "error_description": "Invalid Value"
+    // }
+
+
+    //https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=ya29.a0ARW5m77MXCE_rBZArZ95X0CraNyXyBIccK3XGMsEQs2ZfSQrE283v7UH_t8LKhL0FL8of1-xqa1D7diAUl11JA-8G33ShyjIHhQ-24qV5pOF4x-5d0ikfW_8E4qqhAXBF6rLesDL8cxFbPbhJNm9_0zODM191LILXp8aCgYKAXYSARASFQHGX2Mi-HFf33e0doVq35BS-miAsg0170
+    // fetch('https://jsonplaceholder.typicode.com/todos/1')
+    //   .then(response => response.json())
+    //   .then(json => console.log("JSON", json))
+
+
 </script>
 
-<p>
-    callback
-</p>
+<div>
+
+</div>
+
+ -->
