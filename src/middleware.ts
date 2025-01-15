@@ -6,7 +6,11 @@ const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
 
 export function onRequest (context:any, next:any) {
 
-    console.log(context.request.headers);
+    if ( SECURE_ROUTES.has(context.url.pathname) ) {
+        console.log(context.request.headers);
+    }
+
+
     // if (OAUTH2_PATHS.has(context.url.pathname)) {
     //     console.log('Oauth2 path Google');
     //     console.log(context)
