@@ -1,9 +1,12 @@
 
-const OAUTH2_PATHS = new Set(["/oauth2/google/callback"]);
+const OAUTH2_PATHS: Set<string> = new Set(["/oauth2/google/callback"]);
+const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
+
 
 
 export function onRequest (context:any, next:any) {
 
+    console.log(context.request.headers);
     // if (OAUTH2_PATHS.has(context.url.pathname)) {
     //     console.log('Oauth2 path Google');
     //     console.log(context)
