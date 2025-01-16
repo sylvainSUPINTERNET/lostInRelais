@@ -3,33 +3,42 @@ export const prerender = false
 ---
 
 <script>
-
+  
     ( async () => {
-        if ( window.location.hash != "" ) {
-        try {
-          const hash = window.location.hash.substring(1);
+        const codeVerifier = localStorage.getItem('google_oauth2_codeVerifier');
 
-          const response = await fetch('/oauth2/google/checkAuth', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            cache: 'no-cache',
-            body: JSON.stringify({"params": new URLSearchParams(hash).toString()})
-          });
-
-          if ( response.status !== 200 ) {
-            throw new Error("Failed to login");
-          }
-
-          window.location.href = "/";
-          
-        } catch ( e ) {
-          alert("Error: Failed to login");
+        if ( window.location.href != "" && (codeVerifier == null || codeVerifier == "" || codeVerifier == undefined) ) {
           window.location.href = "/login";
+        } else {
+            try {
+              const code = new URLSearchParams(window.location.href).get('code');
+
+              const response = await fetch('/oauth2/google/checkAuth', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                cache: 'no-cache',
+                body: JSON.stringify({code, codeVerifier})
+              });
+
+              if ( response.status !== 200 ) {
+                throw new Error("Failed to login");
+              }
+
+              localStorage.removeItem('google_oauth2_codeVerifier');
+              window.location.href = "/";
+
+            } catch ( e ) {
+              alert("Error: Failed to login");
+              localStorage.removeItem('google_oauth2_codeVerifier');
+              window.location.href = "/login";
+            }
         }
-      }
+          
+
+      
     })()
 
 </script>

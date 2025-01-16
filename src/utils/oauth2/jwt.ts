@@ -1,0 +1,1 @@
+export const parseJwt = (token:string): Record<any, any> => { return JSON.parse(atob(token.split('.')[1])); }

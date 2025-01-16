@@ -10,7 +10,7 @@ export default function GoogleLoginOAuth2() {
       try {
         const { codeVerifier, codeChallenge } = await generatePKCE();
 
-        localStorage.setItem("codeVerifier", codeVerifier);
+        localStorage.setItem("google_oauth2_codeVerifier", codeVerifier);
 
         const authUrl = `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?` +
           `scope=${encodeURIComponent(
@@ -19,7 +19,7 @@ export default function GoogleLoginOAuth2() {
           `&include_granted_scopes=true` +
           `&state=state_parameter_passthrough_value` +
           `&redirect_uri=${encodeURIComponent(
-            "http://localhost:4321/oauth2/google/callback"
+            import.meta.env.PUBLIC_GOOGLE_OAUTH2_REDIRECT_URI
           )}` +
           `&response_type=code` +
           `&access_type=offline` +
