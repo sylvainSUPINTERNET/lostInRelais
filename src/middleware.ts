@@ -7,6 +7,7 @@ const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
 export function onRequest (context:any, next:any) {
 
     if ( SECURE_ROUTES.has(context.url.pathname) ) {
+        console.log("SECURE");
         console.log(context.request.headers);
     }
 
