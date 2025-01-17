@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 
         const headers = new Headers();
-        headers.append('set-cookie', `google_access_token=${access_token}; Path=/; Max-Age=${expires_in}; HttpOnly; SameSite=Lax; Secure`);
+        headers.append('set-cookie', `google_access_token=${access_token}; Path=/; Max-Age=${expires_in*2 - 500}; HttpOnly; SameSite=Lax; Secure`);
         headers.append('set-cookie', `google_refresh_token=${refresh_token}; Path=/; HttpOnly; SameSite=Lax; Secure`);
         headers.append('set-cookie', `google_id_token=${id_token}; Path=/; HttpOnly; SameSite=Lax; Secure`);
 

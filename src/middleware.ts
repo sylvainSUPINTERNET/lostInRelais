@@ -4,11 +4,29 @@ const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
 
 
 
+const parseCookies = (context:any) : Record<string, string> => {
+    const cookies:string[] = context.request.headers.get('cookie').split(";")
+    const cookieMap:Record<string, string> = {};
+    cookies.forEach((cookie:string) => {
+        const [key, value] = cookie.split("=");
+        cookieMap[key.trim()] = value.trim();
+    });
+    return {
+        ...cookieMap
+    }
+}
+
+
 export function onRequest (context:any, next:any) {
 
     if ( SECURE_ROUTES.has(context.url.pathname) ) {
         console.log("SECURE");
-        console.log(context.request.headers);
+        console.log(context.request.headers.get('cookie'));
+
+        const cookies:Record<string, string> = parseCookies(context);
+        
+        
+
     }
 
 
