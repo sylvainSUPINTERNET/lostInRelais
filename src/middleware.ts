@@ -1,4 +1,5 @@
-import { parseCookiesSigned, signCookie, verifyCookie } from "./utils/cookies";
+import { parseCookiesSigned, signCookie } from "./utils/cookies";
+import { parseJwt } from "./utils/oauth2/jwt";
 
 const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
 
@@ -84,7 +85,11 @@ export async function onRequest (context:any, next:any) {
                             headers.append('set-cookie', `google_access_token=${cookieAccessTokenSigned}; Path=/; Max-Age=${expires_in}; HttpOnly; SameSite=Lax; Secure`); // use "real" expiration here instead of safe
                             headers.append('set-cookie', `google_id_token=${cookieIdTokenSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
                             headers.append('set-cookie', `google_token_expire_at=${cookieExpireSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
-                                                        
+                                                                             
+                            
+                            context.locals.userDetail = parseJwt(id_token);
+                    
+
                             return next(new Request(`${import.meta.env.PUBLIC_BASE_URL_UI}${context.url.pathname}`, {
                                 headers
                             }));
@@ -105,25 +110,10 @@ export async function onRequest (context:any, next:any) {
 
         }
 
-    
-        
-
+        context.locals.userDetail = parseJwt(cookies.google_id_token);
+        return next();
     }
 
-    // intercept data from a request
-    // optionally, modify the properties in `locals`
-    context.locals.title = "New title";
 
-    // console.log('Request intercepted');
-    // console.log(context.request.headers.get('cookie'))
-    // console.log(context.url.pathname)
-    // console.log(context.cookies)
-   
-    // if (OAUTH2_PATHS.has(context.url.pathname)) {
-    //     console.log('Oauth2 path');
-    // }
-
-
-    // return a Response or the result of calling `next()`
     return next();
 };

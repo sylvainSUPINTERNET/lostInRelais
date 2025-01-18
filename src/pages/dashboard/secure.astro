@@ -1,5 +1,15 @@
 ---
+import SecureT from '../../components/react/dashboard/SecureT';
+import Layout from '../../layouts/Layout.astro';
+
 export  const prerender = false; 
+
+const {userDetail}:any = Astro.locals; //middleware
+
 ---
 
-<p>Secure Dashboard</p>
+<Layout title="login">
+    <p>Secure Dashboard</p>
+    <SecureT client:load userDetail={userDetail}></SecureT>
+</Layout>
+

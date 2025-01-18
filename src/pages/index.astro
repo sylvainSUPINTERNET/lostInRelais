@@ -3,9 +3,8 @@ import Layout from '../layouts/Layout.astro';
 
 import Re from '../components/react/Re.tsx';
 import Ke from '../components/react/Ke.tsx';
-import Pe from "../components/preact/Pe.tsx";
 
-const data:any = Astro.locals; //middleware
+// const data:any = Astro.locals; //middleware
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -13,10 +12,9 @@ const data:any = Astro.locals; //middleware
 
 
 <Layout title="home">
-	{ data.title }
-	<Re props=`${data.title} re`></Re>
-	<Pe props=`${data.title} pe`></Pe>
-	<Ke props=`not ssr ke` client:only="react"></Ke>
+	<!-- { data.title } -->
+	<!-- <Re props=`${data.title} re`></Re> -->
+	<!-- <Ke props=`not ssr ke` client:only="react"></Ke> -->
 </Layout>
 
 

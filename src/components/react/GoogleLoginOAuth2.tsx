@@ -49,7 +49,11 @@ export default function GoogleLoginOAuth2() {
         {authorizationUrl ? (
           <a
             onClick={() => {
-              localStorage.setItem("redirect_to_success", window.location.pathname);
+              if ( window.location.pathname !== "/login" ) {
+                localStorage.setItem("redirect_to_success", window.location.pathname);
+              } else {
+                localStorage.setItem("redirect_to_success", "/");
+              }
             }}
             href={authorizationUrl}
             aria-label="Sign in with Google"
