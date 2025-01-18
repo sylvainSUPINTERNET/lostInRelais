@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro'
-import { parseJwt } from '../../../utils/oauth2/jwt';
-
+import { signCookie } from '../../../utils/cookies';
 
 export const prerender = false
 
@@ -41,11 +40,26 @@ export const POST: APIRoute = async ({ request }) => {
 
         const { access_token, id_token, expires_in, refresh_token, scope } = await response.json();
 
+        const expirePlusOneHour = expires_in*2 - 500
 
         const headers = new Headers();
-        headers.append('set-cookie', `google_access_token=${access_token}; Path=/; Max-Age=${expires_in*2 - 500}; HttpOnly; SameSite=Lax; Secure`);
-        headers.append('set-cookie', `google_refresh_token=${refresh_token}; Path=/; HttpOnly; SameSite=Lax; Secure`);
-        headers.append('set-cookie', `google_id_token=${id_token}; Path=/; HttpOnly; SameSite=Lax; Secure`);
+
+        const signatureAccessToken = await signCookie(`${access_token}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
+        const cookieAccessTokenSigned = `${access_token}.${signatureAccessToken}`;
+
+        const signatureRefreshToken = await signCookie(`${refresh_token}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
+        const cookieRefreshTokenSigned = `${refresh_token}.${signatureRefreshToken}`;
+
+        const signatureIdToken = await signCookie(`${id_token}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
+        const cookieIdTokenSigned = `${id_token}.${signatureIdToken}`;
+
+        const signatureExpire = await signCookie(`${expirePlusOneHour}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
+        const cookieExpireSigned = `${expirePlusOneHour}.${signatureExpire}`;
+
+        headers.append('set-cookie', `google_access_token=${cookieAccessTokenSigned}; Path=/; Max-Age=${expirePlusOneHour}; HttpOnly; SameSite=Lax; Secure`);
+        headers.append('set-cookie', `google_refresh_token=${cookieRefreshTokenSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
+        headers.append('set-cookie', `google_id_token=${cookieIdTokenSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
+        headers.append('set-cookie', `google_token_expire_at=${cookieExpireSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
 
         return new Response( JSON.stringify({
             response: 'Valid token'

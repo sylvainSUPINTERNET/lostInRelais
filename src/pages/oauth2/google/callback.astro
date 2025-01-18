@@ -3,11 +3,13 @@ export const prerender = false
 ---
 
 <script>
+
+
   
     ( async () => {
         const codeVerifier = localStorage.getItem('google_oauth2_codeVerifier');
 
-        if ( window.location.href != "" && (codeVerifier == null || codeVerifier == "" || codeVerifier == undefined) ) {
+        if ( window.location.href != "" && (codeVerifier == undefined || codeVerifier == null || codeVerifier == "") ) {
           window.location.href = "/login";
         } else {
             try {
@@ -28,7 +30,14 @@ export const prerender = false
               }
 
               localStorage.removeItem('google_oauth2_codeVerifier');
-              window.location.href = "/";
+              
+              const redirectPath = localStorage.getItem('redirect_to_success');
+              if ( redirectPath !== null && redirectPath !== "" ) {
+                localStorage.removeItem('redirect_to_success');
+                window.location.href = redirectPath;
+              } else {
+                window.location.href = "/";
+              }
 
             } catch ( e ) {
               alert("Error: Failed to login");

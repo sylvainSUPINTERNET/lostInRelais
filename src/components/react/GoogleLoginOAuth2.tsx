@@ -48,6 +48,9 @@ export default function GoogleLoginOAuth2() {
         <div>
         {authorizationUrl ? (
           <a
+            onClick={() => {
+              localStorage.setItem("redirect_to_success", window.location.pathname);
+            }}
             href={authorizationUrl}
             aria-label="Sign in with Google"
             className="flex items-center bg-white border border-button-border-light rounded-md p-0.5 pr-3 shadow-md"

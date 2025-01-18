@@ -1,30 +1,46 @@
+import { parseCookiesSigned, signCookie, verifyCookie } from "./utils/cookies";
 
-const OAUTH2_PATHS: Set<string> = new Set(["/oauth2/google/callback"]);
 const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
 
 
-
-const parseCookies = (context:any) : Record<string, string> => {
-    const cookies:string[] = context.request.headers.get('cookie').split(";")
-    const cookieMap:Record<string, string> = {};
-    cookies.forEach((cookie:string) => {
-        const [key, value] = cookie.split("=");
-        cookieMap[key.trim()] = value.trim();
-    });
-    return {
-        ...cookieMap
-    }
-}
-
-
-export function onRequest (context:any, next:any) {
+export async function onRequest (context:any, next:any) {
 
     if ( SECURE_ROUTES.has(context.url.pathname) ) {
-        console.log("SECURE");
-        console.log(context.request.headers.get('cookie'));
 
-        const cookies:Record<string, string> = parseCookies(context);
-        
+
+        const cookies:Record<string, string>|null = await parseCookiesSigned(context);
+
+        console.log("cookies", cookies);
+
+        if ( cookies === null ) {
+                // If the user is not logged in, update the Request to render the `/login` route and
+                // add header to indicate where the user should be sent after a successful login.
+                // Re-execute middleware.
+                return context.rewrite(new Request(`${import.meta.env.PUBLIC_BASE_URL_UI}/login`, {
+                    headers: {
+                      "x-redirect-to": context.url.pathname
+                    }
+                }));
+        } else {
+
+            // No refresh token || no token_id || access token ? redirect to login
+            if ( cookies.google_access_token === undefined || cookies.google_id_token === undefined || cookies.google_refresh_token === undefined ) {
+                return context.rewrite(new Request(`${import.meta.env.PUBLIC_BASE_URL_UI}/login`, {
+                    headers: {
+                      "x-redirect-to": context.url.pathname
+                    }
+                }));
+            }
+
+
+            // no expiration ? redirect to login
+
+            // expired ? trying to refresh token
+            //  if fail => redirect to login
+            //  if success => reset cookies
+        }
+
+    
         
 
     }
