@@ -40,7 +40,9 @@ export const POST: APIRoute = async ({ request }) => {
 
         const { access_token, id_token, expires_in, refresh_token, scope } = await response.json();
 
-        const expirePlusOneHour = expires_in*2 - 500
+        // use for refresh process
+        const expirationDateLocal = new Date(Date.now() + ((expires_in * 2 - 2000) * 1000)).toUTCString();
+
 
         const headers = new Headers();
 
@@ -53,10 +55,10 @@ export const POST: APIRoute = async ({ request }) => {
         const signatureIdToken = await signCookie(`${id_token}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
         const cookieIdTokenSigned = `${id_token}.${signatureIdToken}`;
 
-        const signatureExpire = await signCookie(`${expirePlusOneHour}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
-        const cookieExpireSigned = `${expirePlusOneHour}.${signatureExpire}`;
+        const signatureExpire = await signCookie(`${expirationDateLocal}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
+        const cookieExpireSigned = `${expirationDateLocal}.${signatureExpire}`;
 
-        headers.append('set-cookie', `google_access_token=${cookieAccessTokenSigned}; Path=/; Max-Age=${expirePlusOneHour}; HttpOnly; SameSite=Lax; Secure`);
+        headers.append('set-cookie', `google_access_token=${cookieAccessTokenSigned}; Path=/; Max-Age=${expires_in}; HttpOnly; SameSite=Lax; Secure`); // use "real" expiration here instead of safe
         headers.append('set-cookie', `google_refresh_token=${cookieRefreshTokenSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
         headers.append('set-cookie', `google_id_token=${cookieIdTokenSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);
         headers.append('set-cookie', `google_token_expire_at=${cookieExpireSigned}; Path=/; HttpOnly; SameSite=Lax; Secure`);

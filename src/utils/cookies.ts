@@ -12,7 +12,10 @@ export async function parseCookiesSigned(context:any): Promise<Record<string, st
         for (const [key, value] of Object.entries(cookiesFoundRaw)) {
             const isSigned = await verifyCookie(`${value}`, import.meta.env.COOKIE_SIGNATURE_SECRET);
             if (isSigned) {
-                cookiesFoundSigned[`${key}`] = `${value}`;
+                const parts = `${value}`.split('.'); // value with signature so u need to split it
+                const signature = parts.pop();
+                const valueWithoutSignature = parts.join('.');
+                cookiesFoundSigned[`${key}`] = `${valueWithoutSignature}`;
             }
             
         }
