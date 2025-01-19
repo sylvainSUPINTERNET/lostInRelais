@@ -15,7 +15,8 @@ export default {
 					'logo-green': '#34a853',
 					'logo-yellow': '#fbbc05',
 					'logo-red': '#ea4335',
-			}
+				},
+				youtube: "#FF0000"
 		},
 		
 		},

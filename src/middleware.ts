@@ -1,7 +1,10 @@
 import { parseCookiesSigned, signCookie } from "./utils/cookies";
 import { parseJwt } from "./utils/oauth2/jwt";
 
-const SECURE_ROUTES: Set<string> = new Set(["/dashboard/secure"]);
+const SECURE_ROUTES: Set<string> = new Set([
+        "/dashboard",
+        "/dashboard/secure"
+    ]);
 
 
 export async function onRequest (context:any, next:any) {

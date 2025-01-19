@@ -1,0 +1,21 @@
+---
+export  const prerender = false; 
+
+import Header from "../../components/react/header/Header";
+import Layout from "../../layouts/Layout.astro";
+
+const {userDetail}:any = Astro.locals; //middleware
+
+---
+
+<Layout title="AutoShorts">
+    <div class="grid grid-cols-12 h-screen">
+        <div class="col-span-12 grid grid-rows-[auto_1fr]">
+            <Header userInfo={userDetail}></Header>
+            <main class="bg-white p-6">
+                <p>Contenu principal ici...</p>
+            </main>
+        </div>
+      </div>
+      
+</Layout>

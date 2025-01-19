@@ -8,7 +8,7 @@ const {userDetail}:any = Astro.locals; //middleware
 
 ---
 
-<Layout title="dashboard | secure">
+<Layout title="Dashboard | Secure">
     <p>Secure Dashboard</p>
     <SecureT client:load userDetail={userDetail}></SecureT>
 </Layout>
