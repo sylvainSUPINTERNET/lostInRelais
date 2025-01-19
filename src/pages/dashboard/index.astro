@@ -12,9 +12,27 @@ const {userDetail}:any = Astro.locals; //middleware
     <div class="grid grid-cols-12 h-screen">
         <div class="col-span-12 grid grid-rows-[auto_1fr]">
             <Header userInfo={userDetail}></Header>
-            <main class="bg-white p-6">
-                <p>Contenu principal ici...</p>
+
+            <main>
+                <div class="p-4 mt-[3em] container mx-auto">
+                    <div class="flex bg-red-100 p-2">
+                        <h1 class="text-2xl font-extrabold">Clips</h1>
+                    </div>
+                    <div class="bg-green-100 p-2 mt-5">
+                        <div class="flex gap-4 w-full justify-center"> 
+                            <p>filter1</p>
+                            <p>filter1</p>
+                            <p>filter1</p>
+                            <p>filter1</p>
+                        </div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
             </main>
+
         </div>
       </div>
       

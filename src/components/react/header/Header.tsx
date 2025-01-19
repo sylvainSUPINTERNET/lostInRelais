@@ -8,7 +8,7 @@ export default function Header({userInfo}:Record<string, any>) {
             <div className="flex justify-between items-center">
                 <div className="flex gap-1">
                     {/* <Logo></Logo> */}
-                    <h1 className="text-2xl font-bold font-mono text-white" >
+                    <h1 className="text-2xl font-extrabold font-mono text-white" >
                         Autoshorts
                     </h1>
                 </div>
