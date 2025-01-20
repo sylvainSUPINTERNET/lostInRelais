@@ -1,6 +1,7 @@
 ---
 export  const prerender = false; 
 
+import ClipCard from "../../components/react/dashboard/clips/ClipCard";
 import DownloadInput from "../../components/react/dashboard/ytb/DownloadInput";
 import Header from "../../components/react/header/Header";
 import Layout from "../../layouts/Layout.astro";
@@ -35,18 +36,26 @@ const {userDetail}:any = Astro.locals; //middleware
                         </div>
                     </div>
 
-                    <div class="flex bg-red-100 p-2 mt-5">
+                    <div class="flex p-2 mt-5">
                         <h1 class="text-2xl font-bold text-zinc-700 font-sans">Clips</h1>
                     </div>
-                    <div class="bg-green-100 p-2 mt-5">
+                    <div class="p-2 mt-5">
                         <div class="flex gap-4 w-full justify-center"> 
                             <p>filter1</p>
                             <p>filter1</p>
                             <p>filter1</p>
                             <p>filter1</p>
                         </div>
-                        <div>
-                            
+                        <div class="p-2">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {
+                                    new Array(6).fill(6).map( e => {
+                                        return ( 
+                                            <ClipCard></ClipCard>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                     
