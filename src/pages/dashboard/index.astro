@@ -1,8 +1,10 @@
 ---
 export  const prerender = false; 
 
+import DownloadInput from "../../components/react/dashboard/ytb/DownloadInput";
 import Header from "../../components/react/header/Header";
 import Layout from "../../layouts/Layout.astro";
+
 
 const {userDetail}:any = Astro.locals; //middleware
 
@@ -14,9 +16,27 @@ const {userDetail}:any = Astro.locals; //middleware
             <Header userInfo={userDetail}></Header>
 
             <main>
-                <div class="p-4 mt-[3em] container mx-auto">
-                    <div class="flex bg-red-100 p-2">
-                        <h1 class="text-2xl font-extrabold">Clips</h1>
+                <div class="p-4 mt-[3em] container mx-auto  max-w-4xl">
+
+                    <div class="flex p-2">
+                        <div class="w-full">
+                            <h1 class="text-2xl font-bold text-zinc-700 font-sans">Generate New Clips</h1>
+                        </div>
+                    </div>
+                    <div class="flex mt-2 justify-around">
+                        <div class="w-full max-w-md px-4">
+                            <DownloadInput></DownloadInput>
+                        </div>
+                        <div>
+                            <img 
+                            src="https://dqu1p08d61fh.cloudfront.net/static/images/short-button.jpg" 
+                            alt="short-button" 
+                            class="w-full max-w-sm sm:max-w-xs h-auto object-cover"/>
+                        </div>
+                    </div>
+
+                    <div class="flex bg-red-100 p-2 mt-5">
+                        <h1 class="text-2xl font-bold text-zinc-700 font-sans">Clips</h1>
                     </div>
                     <div class="bg-green-100 p-2 mt-5">
                         <div class="flex gap-4 w-full justify-center"> 

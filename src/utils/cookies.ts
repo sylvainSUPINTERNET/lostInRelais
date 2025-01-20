@@ -4,6 +4,10 @@ export async function parseCookiesSigned(context:any): Promise<Record<string, st
     try {
         let cookiesFoundSigned: Record<string, string> = {};
 
+        if ( !context.request.headers.get('cookie') ) {
+            return null;
+        }
+        
         let cookiesFoundRaw = context.request.headers.get('cookie')
         .split(';')
         .map((cookie:string) => cookie.trim().split('='))
