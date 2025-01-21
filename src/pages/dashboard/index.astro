@@ -41,7 +41,7 @@ const {userDetail}:any = Astro.locals; //middleware
                     </div>
                     <div class="p-2 mt-5">
                         <div class="flex gap-4 w-full justify-center"> 
-                            <p>filter1</p>
+                            <p class="text-zinc-700">Sort By : Newest</p>
                             <p>filter1</p>
                             <p>filter1</p>
                             <p>filter1</p>
@@ -49,9 +49,9 @@ const {userDetail}:any = Astro.locals; //middleware
                         <div class="p-2">
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {
-                                    new Array(6).fill(6).map( e => {
+                                    new Array(6).fill(6).map( (e, index) => {
                                         return ( 
-                                            <ClipCard></ClipCard>
+                                            <ClipCard i={index}></ClipCard>
                                         )
                                     })
                                 }
