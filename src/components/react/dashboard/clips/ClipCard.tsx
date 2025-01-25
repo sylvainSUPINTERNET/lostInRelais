@@ -1,7 +1,7 @@
 export default function ClipCard ({i}: {i:number}) {
     return ( 
         <div>
-            <div className="p-3 rounded-lg cursor-pointer hover:shadow-sm hover:bg-gray-100 transition-colors duration-300 ease-in-out">
+            <div className="min-h-48 p-3 rounded-lg cursor-pointer hover:shadow-sm hover:bg-gray-100 transition-colors duration-300 ease-in-out">
                 <div className="relative">
                     <img
                     className="rounded-lg shadow-lg" 
