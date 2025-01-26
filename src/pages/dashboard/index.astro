@@ -1,68 +1,12 @@
 ---
 export  const prerender = false; 
 
-import ClipCard from "../../components/react/dashboard/clips/ClipCard";
-import DownloadInput from "../../components/react/dashboard/ytb/DownloadInput";
-import Header from "../../components/react/header/Header";
+import Dashboard from "../../components/react/dashboard/Dashboard";
 import Layout from "../../layouts/Layout.astro";
 
-
 const {userDetail}:any = Astro.locals; //middleware
-
 ---
 
 <Layout title="AutoShorts">
-    <div class="grid grid-cols-12 h-screen">
-        <div class="col-span-12 grid grid-rows-[auto_1fr]">
-            <Header userInfo={userDetail}></Header>
-
-            <main>
-                <div class="p-4 mt-[3em] container mx-auto  max-w-4xl">
-
-                    <div class="flex p-2">
-                        <div class="w-full">
-                            <h1 class="text-2xl font-bold text-zinc-700 font-sans">Generate New Clips</h1>
-                        </div>
-                    </div>
-                    <div class="flex mt-2 justify-around">
-                        <div class="w-full max-w-md px-4">
-                            <DownloadInput client:load></DownloadInput>
-                        </div>
-                        <div>
-                            <img 
-                            src="https://dqu1p08d61fh.cloudfront.net/static/images/short-button.jpg" 
-                            alt="short-button" 
-                            class="w-full max-w-sm sm:max-w-xs h-auto object-cover"/>
-                        </div>
-                    </div>
-
-                    <div class="flex p-2 mt-5">
-                        <h1 class="text-2xl font-bold text-zinc-700 font-sans">Clips</h1>
-                    </div>
-                    <div class="p-2 mt-5">
-                        <div class="flex gap-4 w-full justify-center"> 
-                            <p class="text-zinc-700">Sort By : Newest</p>
-                            <p>filter1</p>
-                            <p>filter1</p>
-                            <p>filter1</p>
-                        </div>
-                        <div class="p-2">
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {
-                                    new Array(6).fill(6).map( (e, index) => {
-                                        return ( 
-                                            <ClipCard i={index}></ClipCard>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </main>
-
-        </div>
-      </div>
-      
+    <Dashboard userDetail={userDetail} client:load></Dashboard>     
 </Layout>

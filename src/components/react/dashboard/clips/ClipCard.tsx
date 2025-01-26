@@ -35,7 +35,7 @@ export default function ClipCard ({i}: {i:number}) {
                                 <div className="absolute top-0 left-0 text-white bg-cyan-600/80 text-sm text-rigth rounded-lg h-full w-full">
                                 </div>
                                 <div className="absolute top-[40%] left-[30%] text-black font-bold text-sm text-rigth rounded-lg h-full w-full">
-                                    <p>ETA {Math.floor(Math.random()*200)}mins</p>
+                                    {/* <p>ETA {Math.floor(Math.random()*200)}mins</p> WILL CAUSE ISSUE here for SSR*/} 
                                 </div>
                             </div>
                         )

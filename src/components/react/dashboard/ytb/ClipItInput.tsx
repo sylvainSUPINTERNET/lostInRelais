@@ -3,10 +3,12 @@ import { Button, Description, Field, Input, Label } from '@headlessui/react'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-export default function DownloadInput() {
+export default function ClipItInput({
+    setOembed
+}: any) {
 
     const [youtubeUrl, setYoutubeUrl] = useState("")
-    const [oembed, setOembed] = useState<Record<string, any> | null>();
+
     return (
         <div className='text-black'>
             <Field>
@@ -36,27 +38,43 @@ export default function DownloadInput() {
                                    focus:outline-none focus:ring-2 
                                    focus:ring-blue-300 transition 
                                    duration-300 ease-in-out">
-                    Download
+                    Clip It
                 </Button> 
             </div>
 
+            {/* <div className='bg-red-500 rounded-lg p-1 mt-5 flex w-full'>
+                <div className='w-full'>
+                    <img className="h-32 w-50 rounded-lg shadow-lg" 
+                        src={"https://i.ytimg.com/vi/zusBwCIcu18/hqdefault.jpg"}
+                        alt="thumbnail"/>
+                </div>
 
-            <div>
-                <img className="h-32 w-50 rounded-lg shadow-lg" 
-                    //  src={oembed.thumbnail_url} 
-                    src={"https://i.ytimg.com/vi/zusBwCIcu18/hqdefault.jpg"}
-                    alt="thumbnail"/>
+                <div className='bg-red-100 w-full'>
+                    <div className='p-1 grid grid-cols-4 gap-4'>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                        <div>ok</div>
+                    </div>
+                </div>
             </div>
-{/* 
+ 
             {
                 oembed && oembed !== null && (
                     <div>
-                        <img className="h-32 w-32 rounded-lg" 
+                        
+                        <img className="h-32 w-50 rounded-lg" 
                              src={oembed.thumbnail_url} 
                              alt="thumbnail"/>
                     </div>
                 )
-            } */}
+            }  */}
 
 
         </div>
