@@ -3,7 +3,8 @@ import { parseJwt } from "./utils/oauth2/jwt";
 
 const SECURE_ROUTES: Set<string> = new Set([
         "/dashboard",
-        "/dashboard/secure"
+        "/dashboard/secure",
+        "/order"
     ]);
 
 

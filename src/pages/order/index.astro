@@ -1,0 +1,11 @@
+---
+export  const prerender = false; 
+
+import Layout from "../../layouts/Layout.astro";
+import MapScene from "../../components/react/order/MapScene";
+const {userDetail}:any = Astro.locals; //middleware
+---
+
+<Layout title="AutoShorts">
+    <MapScene userDetail={userDetail} client:only></MapScene>     
+</Layout>

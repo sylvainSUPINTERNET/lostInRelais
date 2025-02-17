@@ -8,7 +8,6 @@ export default function Dashboard({userDetail}: Record<string, any>) {
 
     return ( 
         <div className="grid grid-cols-12 h-screen">
-
             <div className="col-span-12 grid grid-rows-[auto_1fr]">
                 <Header userInfo={userDetail}></Header>
 
