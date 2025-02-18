@@ -39,13 +39,15 @@ export default function MapScene({userInfo}:Record<string, any>) {
                             <p className="mb-[0.5rem]">
                                 Chercher une adresse<span className="text-red-700 font-bold">*</span>
                             </p>
-                            {/* <label htmlFor="search" className="absolute inset-y-0 left-0 flex items-center pl-3">
-                            </label> */}
                             <div className="relative w-full max-w-sm">
                                 <div className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">
-                                    <LuSearch fontSize={18} color="gray"/>
+                                    <LuSearch fontSize={18} className="text-gray-400"/>
                                 </div>
-                                <input type="search" placeholder="Rechercher..."
+                                <input 
+                                    onClick={(e) => {
+                                        // TODO => mapBox
+                                    }}
+                                    type="search" placeholder="Rechercher..."
                                     className="outline-none border w-full px-10 py-2 rounded-md focus:outline-none 
                                     border-gray-100 focus:border-gray-100 focus:ring ring-gray-100 transition-all
                                     " />
