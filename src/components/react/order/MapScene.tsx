@@ -46,6 +46,7 @@ export default function MapScene({userInfo}:Record<string, any>) {
                                 <input 
                                     onClick={(e) => {
                                         // TODO => mapBox
+                                        // https://docs.mapbox.com/mapbox-search-js/example/autofill-checkout-react/
                                     }}
                                     type="search" placeholder="Rechercher..."
                                     className="outline-none border w-full px-10 py-2 rounded-md focus:outline-none 
