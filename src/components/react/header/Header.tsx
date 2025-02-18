@@ -9,7 +9,7 @@ export default function Header({userInfo}:Record<string, any>) {
                 <div className="flex gap-1">
                     {/* <Logo></Logo> */}
                     <h1 className="text-2xl font-extrabold font-mono text-white" >
-                        Autoshorts
+                        LostInRelais
                     </h1>
                 </div>
                 <div className="flex">
